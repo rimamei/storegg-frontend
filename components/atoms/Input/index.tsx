@@ -1,12 +1,13 @@
-import React from "react";
+import { InputHTMLAttributes } from "react";
 
-export interface InputProps {
+export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
   type: string;
   id: string;
   name: string;
   placeholder: string;
 }
+
 export default function Input(props: InputProps) {
   const { label, type, id, name, placeholder, ...nativeProps } = props;
 

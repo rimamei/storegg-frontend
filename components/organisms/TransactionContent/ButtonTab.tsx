@@ -5,19 +5,18 @@ interface ButtonTabProps {
   active?: boolean;
   href?: string;
   dataFilter: string;
+  onClick: () => void;
 }
 
 export default function ButtonTab(props: ButtonTabProps) {
-  const { title, active, href, dataFilter } = props;
+  const { title, active, href, dataFilter, onClick } = props;
   return (
-    <a
-      data-filter={dataFilter}
-      href={href}
-      className={`btn btn-status rounded-pill text-sm ${
-        active && "btn-active"
-      } me-3`}
+    <button
+      onClick={onClick}
+      className={`btn btn-status rounded-pill text-sm ${active && "btn-active"
+        } me-3`}
     >
       {title}
-    </a>
+    </button>
   );
 }

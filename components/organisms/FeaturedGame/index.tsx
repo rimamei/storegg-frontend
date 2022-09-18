@@ -1,7 +1,23 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import GameItem from "../../molecules/GameItem";
+import { getFeaturedGame } from '../../../services/player';
+import { GameItemTypes } from '../../../services/data-types';
 
 export default function FeaturedGame() {
+
+  const [gameList, setGameList] = useState([])
+
+  const getFeaturedGameList = useCallback(async () => {
+    const data = await getFeaturedGame()
+    setGameList(data)
+  }, [])
+
+  useEffect(() => {
+    getFeaturedGameList()
+  }, [])
+
+  const IMG_URL = process.env.NEXT_PUBLIC_IMAGE
+
   return (
     <section className="featured-game pt-50 pb-50">
       <div className="container-fluid">
@@ -13,31 +29,16 @@ export default function FeaturedGame() {
           className="d-flex flex-row flex-lg-wrap overflow-setting justify-content-lg-between gap-lg-3 gap-4"
           data-aos="fade-up"
         >
-          <GameItem
-            thumbnail="Thumbnail-1"
-            title="Super Mechs"
-            category="Mobile"
-          />
-          <GameItem
-            thumbnail="Thumbnail-2"
-            title="Call of Duty: Modern"
-            category="Mobile"
-          />
-          <GameItem
-            thumbnail="Thumbnail-3"
-            title="Mobile Legends"
-            category="Mobile"
-          />
-          <GameItem
-            thumbnail="Thumbnail-4"
-            title="Clash of Clans"
-            category="Mobile"
-          />
-          <GameItem
-            thumbnail="Thumbnail-5"
-            title="Valorant"
-            category="Mobile"
-          />
+          {gameList.map((item: GameItemTypes) => {
+            return (<GameItem
+              key={item._id}
+              id={item._id}
+              thumbnail={`${IMG_URL}/${item.thumbnail}`}
+              title={item.name}
+              category={item.category.name}
+            />
+            )
+          })}
         </div>
       </div>
     </section>
