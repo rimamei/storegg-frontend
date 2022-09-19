@@ -20,7 +20,7 @@ cd storegg-frontend
 
 ```bash
 npm install
-``
+```
 
 3. Start the server:
 ```bash
